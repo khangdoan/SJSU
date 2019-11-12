@@ -18,6 +18,7 @@ Output:
 - Break even price (in dollars)
 '''
 
+
 def readInput():
     '''Takes input and returns a dict'''
 
@@ -28,13 +29,13 @@ def readInput():
     # initialSharePrices = input("Initial share prices (USD: ")
     # buyCommission = input("Buy Commission (USD): ")
     # capitalGainTaxRate = input("Capital gain tax rate (%): ")
-    return {'StockSymbol': int(input("Stock Symbol: ")),
-            'Allotment': int(input("Final share price (USD): ")),
-            'FinalSharePrices': int(input("Final share price (USD): ")),
-            'SellCommission': int(input("sell Commission (USD): ")),
-            'InitialSharePrices': int(input("Initial share prices (USD: ")),
-            'BuyCommission': int(input("Buy Commission (USD): ")),
-            'CapitalGainTaxRate': int(input("Capital gain tax rate (%): "))
+    return {'StockSymbol': input("Stock Symbol: "),
+            'Allotment': float(input("Allotment: ")),
+            'FinalSharePrices': float(input("Final share price (USD): ")),
+            'SellCommission': float(input("sell Commission (USD): ")),
+            'InitialSharePrices': float(input("Initial share prices (USD: ")),
+            'BuyCommission': float(input("Buy Commission (USD): ")),
+            'CapitalGainTaxRate': float(input("Capital gain tax rate (%): "))
             }
 
 
@@ -43,15 +44,21 @@ def calculateProceeds(allotment, finalSharePrice):
 
 
 def calculateCost(allotment, initialSharePrice, commissions, capitalGainTaxRate):
-    return allotment * initialSharePrice + commissions+capitalGainTaxRate
+    return allotment * initialSharePrice + commissions + capitalGainTaxRate
+
 
 def printReport():
     userInput = readInput()
-    cost = calculateCost(userInput['Allotment'],userInput['InitialSharePrices'],userInput["SellCommision"],
-                        (int(userInput['CapitalGainTaxGain']) / 100) *
-                        (int(userInput['Allotment'])*int(userInput['FinalSharePrices']) -
-                         int(userInput['Allotment'])*int(userInput['InitialSharePrices'])))
     proceeds = calculateProceeds(userInput['Allotment'], userInput['FinalSharePrices'])
+    cost = calculateCost(userInput['Allotment'], userInput['InitialSharePrices'],
+                         userInput["SellCommission"] + userInput["BuyCommission"],
+                         (userInput['CapitalGainTaxRate']) / 100 *
+                         (proceeds - userInput['Allotment'] * userInput['InitialSharePrices'] -
+                          userInput["SellCommission"] - userInput["BuyCommission"]))
+    print("DEBUG")
+    print((userInput['CapitalGainTaxRate']) / 100 *
+          (proceeds - userInput['Allotment'] * userInput['InitialSharePrices'] -
+           userInput["SellCommission"] - userInput["BuyCommission"]))
     print("*****************PROFIT REPORT**********************")
     print("Proceeds: ")
     print(proceeds)
@@ -60,10 +67,10 @@ def printReport():
     print("Net Profit: ")
     print(proceeds - cost)
     print("Return on Investment: ")
-    print((proceeds-cost)/cost)
+    print((proceeds - cost) / cost * 100, "%")
     print("To break even, you should have a final share price of: ")
-    print(cost/userInput['Allotment'])
+    print((userInput['Allotment'] * userInput['InitialSharePrices'] + userInput['SellCommission']
+           + userInput["BuyCommission"]) / userInput['Allotment'])
 
 
 printReport()
-
