@@ -22,13 +22,7 @@ Output:
 def readInput():
     '''Takes input and returns a dict'''
 
-    # stockSym = input("Stock Symbol: ")
-    # allotment = input("Allotment (Number of shares): ")
-    # finalSharePrices = input("Final share price (USD): ")
-    # sellCommision = input("sell Commission (USD): ")
-    # initialSharePrices = input("Initial share prices (USD: ")
-    # buyCommission = input("Buy Commission (USD): ")
-    # capitalGainTaxRate = input("Capital gain tax rate (%): ")
+
     return {'StockSymbol': input("Stock Symbol: "),
             'Allotment': float(input("Allotment: ")),
             'FinalSharePrices': float(input("Final share price (USD): ")),
@@ -55,10 +49,7 @@ def printReport():
                          (userInput['CapitalGainTaxRate']) / 100 *
                          (proceeds - userInput['Allotment'] * userInput['InitialSharePrices'] -
                           userInput["SellCommission"] - userInput["BuyCommission"]))
-    print("DEBUG")
-    print((userInput['CapitalGainTaxRate']) / 100 *
-          (proceeds - userInput['Allotment'] * userInput['InitialSharePrices'] -
-           userInput["SellCommission"] - userInput["BuyCommission"]))
+
     print("*****************PROFIT REPORT**********************")
     print("Proceeds: ")
     print(proceeds)
