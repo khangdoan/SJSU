@@ -14,3 +14,6 @@ iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
 # sjsu.edu -> 130.65.255.101
 iptables -t nat -A OUTPUT -p tcp --dport 80  -d 130.65.255.101 -j DNAT --to-destination <web proxy's ip>
 iptables -t nat -A OUTPUT -p tcp --dport 443  -d 130.65.255.101 -j DNAT --to-destination <web proxy's ip>
+
+/etc/init.d/iptables save
+/etc/init.d/iptables reload
